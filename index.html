@@ -12,13 +12,13 @@
           extend: {
             colors: {
               brand: {
-                background: '#0A0B09', // Deep Charcoal
-                surface: '#1A1D16', // Dark Olive Card Backgrounds
-                primary: '#6A7B3E', // Moss Green Accents/Buttons
-                hover: '#889C53', // Lighter Green for hovers
-                text: '#FFFFFF', // Crisp White text
-                muted: '#A3A898', // Gray-Green secondary text
-                border: '#2A2E24', // Dark divider lines
+                background: '#0A0B09',
+                surface: '#1A1D16',
+                primary: '#6A7B3E',
+                hover: '#889C53',
+                text: '#FFFFFF',
+                muted: '#A3A898',
+                border: '#2A2E24',
               },
             },
             fontFamily: {
@@ -35,10 +35,9 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #0a0b09; /* Fallback to brand background */
+        background-color: #0a0b09;
         color: #ffffff;
       }
-      /* Custom Scrollbar styled to the new brand */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -53,27 +52,10 @@
         background: #6a7b3e;
       }
     </style>
-    <script type="importmap">
-      {
-        "imports": {
-          "react/": "https://esm.sh/react@^19.2.4/",
-          "react": "https://esm.sh/react@^19.2.4",
-          "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-          "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
-          "framer-motion": "https://esm.sh/framer-motion@^12.33.0",
-          "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-          "react-dom": "https://esm.sh/react-dom@^19.2.4",
-          "firebase/app": "https://esm.sh/firebase@10.8.0/app",
-          "firebase/auth": "https://esm.sh/firebase@10.8.0/auth",
-          "firebase/firestore": "https://esm.sh/firebase@10.8.0/firestore",
-          "firebase/": "https://esm.sh/firebase@^12.9.0/"
-        }
-      }
-    </script>
-    <link rel="stylesheet" href="/index.css" />
   </head>
   <body class="bg-brand-background text-brand-text">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+

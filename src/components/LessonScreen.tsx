@@ -10,7 +10,7 @@ import {
   RetryIcon,
 } from './Icons';
 import { PepTalkModal } from './PepTalkModal';
-import { type AnswerGlow, type AnswerStatus } from './AnswerGlow';
+import { AnswerGlow, type AnswerStatus } from './AnswerGlow';
 import { useSound } from '../hooks/useSound';
 
 // STRICT MODULAR IMPORTS
