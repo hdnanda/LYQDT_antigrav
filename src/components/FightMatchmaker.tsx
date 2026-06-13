@@ -7,6 +7,7 @@ import { db } from '../services/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swords, Search, Shield, Zap, X } from 'lucide-react';
+import { getAnchorScenario } from '../services/scenarioManager';
 
 interface FightMatchmakerProps {
   onMatchFound: (matchId: string, role: 'saboteur' | 'fixer') => void;
@@ -94,16 +95,24 @@ export const FightMatchmaker: React.FC<FightMatchmakerProps> = ({ onMatchFound, 
             saboteurId,
             fixerId,
             joinedAt: serverTimestamp(),
-            // --- NEW: BLITZ CHESS STATS ---
+            // Player stats (Blitz Chess style)
             p1Stats: { wealth: 50, reputation: 50 },
             p2Stats: { wealth: 50, reputation: 50 },
-            saboteurClock: 120, // 2 minutes in seconds
+            saboteurClock: 120,
             fixerClock: 120,
-            currentTurn: 'saboteur', // White moves first
-            turnPhase: 'attack', // 'attack' or 'defend'
-            currentAttackChoice: null, // Stores the Saboteur's weapon
+            currentTurn: 'saboteur',
             round: 1,
-            currentScenario: null
+            currentScenario: null,
+            saboteurChoice: null,
+            fixerChoice: null,
+            saboteurScenarioText: null,
+            fixerScenarioText: null,
+            resolving: false,
+            gameOver: false,
+            winnerId: null,
+            // Branching story seed — both players' AI gets this context every round
+            anchorScenario: getAnchorScenario(),
+            matchHistory: [],
           });
         });
 
