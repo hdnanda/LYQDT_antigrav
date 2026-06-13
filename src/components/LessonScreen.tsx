@@ -14,7 +14,7 @@ import { AnswerGlow, type AnswerStatus } from './AnswerGlow';
 import { useSound } from '../hooks/useSound';
 
 // STRICT MODULAR IMPORTS
-import { doc, updateDoc, increment, arrayUnion } from 'firebase/firestore';
+import { doc, setDoc, increment, arrayUnion } from 'firebase/firestore';
 import { db } from '../services/firebase.js';
 import { useAuth } from '../contexts/AuthContext.js';
 import { markLessonComplete } from '../utils/streakUtils';
@@ -141,10 +141,10 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({
     // NON-BLOCKING BACKGROUND SAVE
     const userRef = doc(db, 'users', user.uid);
 
-    updateDoc(userRef, {
+    setDoc(userRef, {
       xp: increment(earnedXP),
       completedLessons: arrayUnion(lesson.id),
-    }).catch((error) =>
+    }, { merge: true }).catch((error) =>
       console.error('Background save failed (XP/Lessons):', error)
     );
 

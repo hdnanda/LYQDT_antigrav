@@ -13,7 +13,7 @@ import { AcademyLobby } from './components/AcademyLobby';
 import { Header } from './components/Header';
 import { BottomNav } from './components/BottomNav';
 import { ProfileEditor } from './components/ProfileEditor';
-import { doc, updateDoc, increment } from "firebase/firestore";
+import { doc, setDoc, increment } from "firebase/firestore";
 import { db, auth } from './services/firebase.js';
 import { TrophyIcon } from './components/Icons';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -41,10 +41,10 @@ const Dashboard = () => {
         if (lastDate !== todayDate) {
             try {
                 const userRef = doc(db, "users", user.uid);
-                await updateDoc(userRef, {
+                await setDoc(userRef, {
                     xp: increment(50),
                     lastLoginBonus: now
-                });
+                }, { merge: true });
                 setShowBonusToast(true);
                 setTimeout(() => setShowBonusToast(false), 3000);
             } catch (err) {

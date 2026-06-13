@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 // FIX: Using CDN imports to match services/firebase.ts
 import { onAuthStateChanged, type User as FirebaseUser } from 'firebase/auth';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { auth, db } from '../services/firebase.js';
 
 // Define the shape of your User Data
@@ -53,12 +53,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                 ...docSnap.data(),
               } as UserData);
             } else {
-              console.log(
-                'User document does not exist yet (Creation pending?)'
-              );
-              // Still set basic user info so app doesn't think they are logged out
-              setUser({
-                uid: firebaseUser.uid,
+              // Document missing — auto-create it so all future writes succeed
+              console.log('User document missing — auto-creating with defaults.');
+              const defaultData = {
                 email: firebaseUser.email,
                 username: firebaseUser.email?.split('@')[0] || 'User',
                 xp: 0,
@@ -68,7 +65,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                 examFailureCount: 0,
                 examUnlockTime: 0,
                 badges: [],
-              } as UserData);
+                createdAt: Date.now(),
+              };
+              setDoc(userRef, defaultData).catch(console.error);
+              setUser({ uid: firebaseUser.uid, ...defaultData } as UserData);
             }
             setLoading(false);
           },

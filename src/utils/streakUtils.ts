@@ -1,5 +1,5 @@
 
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "../services/firebase.js";
 
 export enum StreakStatus {
@@ -52,10 +52,10 @@ export const markLessonComplete = async (user: any) => {
   const today = new Date().toISOString();
   const userRef = doc(db, "users", user.uid);
 
-  await updateDoc(userRef, {
+  await setDoc(userRef, {
     currentStreak: newStreak,
     lastLessonDate: today
-  });
+  }, { merge: true });
 
   return newStreak;
 };
