@@ -84,6 +84,7 @@ export const AcademyMap: React.FC<AcademyMapProps> = ({ sections, examUnlockTime
                 lesson={activeLessonConfig.lesson}
                 sectionColor={activeLessonConfig.color}
                 onExit={() => setActiveLessonConfig(null)}
+                onNextLesson={() => setActiveLessonConfig(null)}
                 onComplete={(xp) => {
                     // Update local flow (modal close)
                     setActiveLessonConfig(null);
